@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>G-DOC - Associates</title>
+  <link rel="stylesheet" href="/css/rank.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body class="associate-theme">
+  <div class="background-glow-alt"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">🌐 G-DOC</a>
+    <div class="nav-dropdown">
+      <button class="nav-dropbtn">Select Role ▼</button>
+      <div class="nav-dropdown-content">
+        <a href="associate.html">Associates</a>
+        <a href="mm.html">Managers</a>
+        <a href="mm.html">HR</a>
+        <a href="mm.html">AD Members</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="dashboard" data-aos="fade-up">
+    <h1>👔 Associate Dashboard</h1>
+    <p class="subheading">Live performance rankings from Associate Google Sheet</p>
+
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search by Employee ID..." />
+      <button onclick="searchEmployee()">Search</button>
+      <select id="monthFilter" onchange="filterByMonth()" class="month-selector">
+        <option value="">📅 Select Month</option>
+        <option>January</option>
+        <option>February</option>
+        <option>March</option>
+        <option>April</option>
+        <option>May</option>
+        <option>June</option>
+        <option>July</option>
+        <option>August</option>
+        <option>September</option>
+        <option>October</option>
+        <option>November</option>
+        <option>December</option>
+      </select>
+    </div>
+
+    <section class="stack-scroller" data-aos="fade-up">
+      <h2 class="stack-heading">🏅 Topper's Stack</h2>
+      <div class="stack-cards" id="topperStack"></div>
+    </section>
+
+    <div class="table-wrapper">
+      <table id="employeeTable">
+        <thead>
+          <tr>
+              <th>👤 Name</th>
+              <th>Stack</th>
+              <th>Resolution</th>
+              <th>CSS</th>
+              <th>DSAT</th>
+              <th>Team</th>
+            <!-- <th>Rank</th>
+            <th>👤 Name</th>
+            <th>🆔 ID</th>
+            <th>📁 Department</th>
+            <th>⭐ Score</th> -->
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- MODAL -->
+  <div id="modal" class="modal">
+    <div class="modal-content" data-aos="zoom-in">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <img id="modalPhoto" src="" class="profile-photo" />
+      <h2 id="modalName">Employee Name</h2>
+      <p id="modalEmployeeID">EmployeeID</p>
+      <p id="modalDept">Team</p>
+      <p id="modalPosition">Position</p>
+      <p id="modalPhone">Phone</p>
+      <p id="modalEmail">Email</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="/js/associate.js"></script>
+  <script>AOS.init({ duration: 1000, once: true });</script>
+  
+</body>
+</html>

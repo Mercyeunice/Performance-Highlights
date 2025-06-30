@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Loading | GDOC</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffffff, #ffffff);
+      color: #000;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+    }
+
+    .logo-img {
+      width: 100px;
+      max-width: 100%;
+      height: auto;
+      animation: fadeLogo 1.2s ease-in-out;
+    }
+
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 6px solid rgba(0, 0, 0, 0.1);
+      border-top: 6px solid #00b7ff;
+      border-right: 6px solid #006eff;
+      border-radius: 50%;
+      animation: super-spin 0.6s linear infinite;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      background: radial-gradient(circle at center, rgba(255,255,255,0.3), transparent);
+      transition: transform 0.3s ease;
+    }
+
+    .spinner:hover {
+      transform: scale(1.1);
+    }
+
+    .powered-by {
+  font-size: 1rem;
+  color: #000000cc;
+  opacity: 0;
+  filter: blur(10px);
+  transform: scale(0.5);
+  animation: revealMagic 1.2s ease-out 1.3s forwards;
+  white-space: nowrap;
+  margin-top: 8px; /* ✅ Add this line */
+}
+
+
+    @keyframes super-spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes fadeLogo {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes revealMagic {
+      to {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .powered-by {
+  font-size: 0.85rem;
+  margin-top: 10px; /* Optional bump */
+}
+      .logo-img {
+        width: 80px;
+      }
+
+      .spinner {
+        width: 45px;
+        height: 45px;
+        border-width: 5px;
+      }
+
+      .powered-by {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <img src="img/Clogo.png" alt="Logo" class="logo-img" />
+    <div class="spinner"></div>
+    <div class="powered-by">Desgined by Ajith & Mercy</div>
+  </div>
+
+  <script>
+    setTimeout(() => {
+      window.location.href = "top.html";
+    }, 5000);
+  </script>
+
+</body>
+</html>
