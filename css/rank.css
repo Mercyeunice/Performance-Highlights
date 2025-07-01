@@ -120,7 +120,7 @@ a {
 
 h1 {
   text-align: center;
-  font-size: 1.3rem;
+  font-size: 1.9rem;
   color: #fbbf24;
 }
 
@@ -176,7 +176,7 @@ h1 {
 
 /* Set a fixed background color here */
 .stack-card {
-  background-color: #444648; /* Replace with any color you prefer */
+  background-color: #9ea8b4; /* Replace with any color you prefer */
   padding: 12px;
   min-width: 160px;
   border-radius: 10px;
