@@ -10,19 +10,16 @@ a {
   text-decoration: none;
 }
 
+/* STATIC BACKGROUND IMAGE */
 .background-glow {
   position: fixed;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at top left, #3b82f6, transparent 70%),
-              radial-gradient(circle at bottom right, #8b5cf6, transparent 70%);
+  background-image: url('/img/1.png'); /* Replace with your actual backend image path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   z-index: -1;
-  animation: glowMove 10s infinite alternate;
-}
-
-@keyframes glowMove {
-  0% { background-position: top left, bottom right; }
-  100% { background-position: center center, top right; }
 }
 
 /* NAVBAR */
@@ -151,7 +148,7 @@ h1 {
 
 .search-container button {
   padding: 10px 16px;
-  background: #22d3ee;
+  background: #2285ee;
   color: black;
   border-radius: 8px;
   font-weight: bold;
@@ -177,8 +174,9 @@ h1 {
   animation: scrollLeft 30s linear infinite;
 }
 
+/* Set a fixed background color here */
 .stack-card {
-  background: rgba(255,255,255,0.06);
+  background-color: #c4d0e0; /* Replace with any color you prefer */
   padding: 12px;
   min-width: 160px;
   border-radius: 10px;
@@ -205,6 +203,7 @@ h1 {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
+
 
 .table-wrapper {
   overflow-x: auto;
