@@ -1,5 +1,12 @@
 const sheetURL = 'https://api.sheetbest.com/sheets/36d7b7c7-7c44-412e-baa3-89a9deaede05';
 let allData = [];
+let currentSortKey = 'Score'; // Default sort by Score
+
+// Load filters from localStorage
+window.addEventListener('load', () => {
+  document.getElementById("monthFilter").value = localStorage.getItem("monthFilter") || "";
+  document.getElementById("teamFilter").value = localStorage.getItem("teamFilter") || "";
+});
 
 function openModal(employee) {
   document.getElementById("modalName").textContent = employee.Name;
@@ -24,16 +31,22 @@ function searchEmployee() {
   else alert("Employee not found");
 }
 
-fetch(sheetURL)
-  .then(response => response.json())
-  .then(data => {
-    allData = data;
-    filterByMonth(); // initial render
-  });
+function setSortKey(key) {
+  currentSortKey = key;
+  filterByMonth(); // re-render
+}
+
+function toggleTheme() {
+  document.body.classList.toggle('light-mode');
+}
 
 function filterByMonth() {
   const selectedMonth = document.getElementById("monthFilter").value;
   const selectedTeam = document.getElementById("teamFilter").value;
+
+  // Save to localStorage
+  localStorage.setItem("monthFilter", selectedMonth);
+  localStorage.setItem("teamFilter", selectedTeam);
 
   const tableBody = document.querySelector("#employeeTable tbody");
   const stackContainer = document.getElementById("topperStack");
@@ -45,8 +58,12 @@ function filterByMonth() {
     (!selectedTeam || emp.Team.toLowerCase() === selectedTeam.toLowerCase())
   );
 
-  const topTen = [...filtered].sort((a, b) => parseFloat(b.Score) - parseFloat(a.Score)).slice(0, 10);
-  const top5 = topTen.slice(0, 5);
+  const sorted = [...filtered].sort((a, b) =>
+    parseFloat(b[currentSortKey]) - parseFloat(a[currentSortKey])
+  );
+
+  const topTen = sorted.slice(0, 10);
+  const top5 = sorted.slice(0, 5);
 
   topTen.forEach(employee => {
     const row = document.createElement("tr");
@@ -67,19 +84,18 @@ function filterByMonth() {
     card.className = "stack-card";
     card.innerHTML = `
       <div class="stack-title">Topper in ${getTopLabel(employee)}</div>
-      <img src="${employee.PhotoURL || 'https://via.placeholder.com/60'}" alt="${employee.Name}" />
+      <img src="${employee.PhotoURL || 'https://via.placeholder.com/60'}"
+           onerror="this.onerror=null;this.src='https://via.placeholder.com/60';"
+           alt="${employee.Name}" />
       <div>${employee.Name}</div>
     `;
     return card;
   }
 
+  // Duplicated stack for smooth loop
   for (let i = 0; i < 2; i++) {
     top5.forEach(emp => stackContainer.appendChild(createCard(emp)));
   }
-}
-
-function filterByTeam() {
-  filterByMonth(); // same handler for both filters
 }
 
 function getTopLabel(employee) {
@@ -92,6 +108,49 @@ function getTopLabel(employee) {
   return Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
 }
 
+function filterByTeam() {
+  filterByMonth(); // unified
+}
+
+// CSV Export
+function exportCSV() {
+  const rows = [['Name', 'Stack', 'Resolution', 'CSS', 'DSAT', 'Team']];
+  document.querySelectorAll('#employeeTable tbody tr').forEach(row => {
+    const cols = Array.from(row.children).map(td => td.textContent.trim());
+    rows.push(cols);
+  });
+  const csvContent = rows.map(e => e.join(",")).join("\n");
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "employee_data.csv";
+  link.click();
+}
+
+// PDF Export
+function exportPDF() {
+  import('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js').then(({ jsPDF }) => {
+    const doc = new jsPDF();
+    let y = 10;
+    doc.setFontSize(12);
+    doc.text("Employee Ranking Data", 10, y);
+    y += 10;
+    document.querySelectorAll('#employeeTable tbody tr').forEach(row => {
+      const cols = Array.from(row.children).map(td => td.textContent.trim()).join(" | ");
+      doc.text(cols, 10, y);
+      y += 10;
+    });
+    doc.save("employee_data.pdf");
+  });
+}
+
 document.getElementById("searchInput").addEventListener("keyup", function (e) {
   if (e.key === "Enter") searchEmployee();
 });
+
+fetch(sheetURL)
+  .then(response => response.json())
+  .then(data => {
+    allData = data;
+    filterByMonth();
+  });

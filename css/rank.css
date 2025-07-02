@@ -1,8 +1,10 @@
+/* FONT & BASE */
 body {
   font-family: 'Poppins', sans-serif;
   background-color: #0f172a;
   color: #f8fafc;
   margin: 0;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 a {
@@ -10,12 +12,12 @@ a {
   text-decoration: none;
 }
 
-/* STATIC BACKGROUND IMAGE */
+/* BACKGROUND */
 .background-glow {
   position: fixed;
   width: 100%;
   height: 100%;
-  background-image: url('/img/1.png'); /* Replace with your actual backend image path */
+  background-image: url('/img/1.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -27,12 +29,13 @@ a {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  padding: 1rem 1rem;
-  background: rgba(255,255,255,0.06);
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.06);
   border-radius: 12px;
-  margin: 1rem;
+  margin: 0 1rem 1rem 1rem; /* remove top margin only */
   align-items: center;
 }
+
 
 .logo {
   font-size: 1.5rem;
@@ -45,31 +48,37 @@ a {
   flex-wrap: wrap;
   align-items: center;
   gap: 10px;
+  margin-left: auto;
+  justify-content: flex-end;
 }
 
+/* BUTTONS, DROPDOWNS */
 .nav-dropbtn,
 .team-selector,
-.month-selector {
-  padding: 10px;
+.month-selector,
+.contact-link {
+  padding: 10px 14px;
   border-radius: 8px;
-  border: none;
-  font-weight: bold;
+  border: 1px solid #334155;
+  font-weight: 600;
+  font-size: 0.95rem;
   background: #1e293b;
   color: white;
   cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: background 0.3s, color 0.3s, border 0.3s;
 }
 
-.contact-link {
-  background: #1e293b;
-  padding: 7px 10px;
-  border-radius: 8px;
-  font-weight: 600;
+.nav-dropbtn:hover,
+.team-selector:hover,
+.month-selector:hover,
+.contact-link:hover {
+  background: #334155;
 }
 
 .nav-dropdown {
   position: relative;
 }
-
 .nav-dropdown-content {
   display: none;
   position: absolute;
@@ -78,43 +87,41 @@ a {
   z-index: 10;
   border-radius: 6px;
   overflow: hidden;
+  min-width: 140px;
 }
-
 .nav-dropdown-content a {
   display: block;
   padding: 10px 16px;
   color: white;
 }
-
 .nav-dropdown:hover .nav-dropdown-content {
   display: block;
 }
 
-/* COMPACT NAVBAR FOR MOBILE */
+/* MOBILE NAV */
 @media (max-width: 768px) {
   .navbar {
-    padding: 0.5rem 1rem;
-    gap: 5px;
-  }
-  .nav-actions {
     flex-direction: column;
     align-items: flex-start;
   }
-  .logo {
-    font-size: 1.2rem;
+  .nav-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    margin-left: 0;
+    margin-top: 10px;
   }
-  .nav-dropbtn, .team-selector, .contact-link {
-    padding: 8px;
-    font-size: 0.9rem;
+  .nav-dropbtn, .team-selector, .contact-link, .month-selector {
+    width: 100%;
   }
 }
 
-/* MAIN CONTENT */
+/* DASHBOARD */
 .dashboard {
   max-width: 1200px;
   margin: auto;
   padding: 1rem;
-  background: rgba(255,255,255,0.04);
+  background: rgba(255, 255, 255, 0.04);
   border-radius: 12px;
 }
 
@@ -126,10 +133,16 @@ h1 {
 
 .subheading {
   text-align: center;
-  font-size: 0.8rem;
-  color: #cbd5e1;
+  font-size: 0.9rem;
+  color: #cbd5e1; /* light gray for dark mode */
   margin-bottom: 1rem;
+  transition: color 0.3s ease;
 }
+
+body.light-mode .subheading {
+  color: #1e293b; /* dark blue/gray for light mode */
+}
+
 
 .search-container {
   display: flex;
@@ -138,14 +151,12 @@ h1 {
   gap: 10px;
   margin-bottom: 1rem;
 }
-
 .search-container input {
   padding: 10px;
   border-radius: 8px;
   border: none;
   width: 240px;
 }
-
 .search-container button {
   padding: 10px 16px;
   background: #2285ee;
@@ -156,34 +167,33 @@ h1 {
   cursor: pointer;
 }
 
+/* STACK SCROLLER */
 .stack-scroller {
   overflow: hidden;
   white-space: nowrap;
   margin: 20px 0;
 }
-
 .stack-heading {
   text-align: center;
   font-size: 1.3rem;
   margin-bottom: 10px;
 }
-
 .stack-cards {
   display: flex;
   gap: 12px;
   animation: scrollLeft 30s linear infinite;
 }
-
-/* Set a fixed background color here */
+.stack-cards:hover {
+  animation-play-state: paused;
+}
 .stack-card {
-  background-color: #9ea8b4; /* Replace with any color you prefer */
+  background-color: #383a3b9e;
   padding: 12px;
   min-width: 160px;
   border-radius: 10px;
   text-align: center;
   flex-shrink: 0;
 }
-
 .stack-card img {
   width: 60px;
   height: 60px;
@@ -192,49 +202,43 @@ h1 {
   margin: 8px 0;
   border: 2px solid white;
 }
-
 .stack-title {
   font-size: 0.85rem;
-  color: #93c5fd;
+  color: #ffffff;
   font-weight: 600;
 }
-
 @keyframes scrollLeft {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
-
+/* TABLE */
 .table-wrapper {
   overflow-x: auto;
 }
-
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
   background: rgba(255,255,255,0.03);
 }
-
 th, td {
   padding: 12px;
   text-align: left;
   white-space: nowrap;
 }
-
 th {
   background: rgba(255,255,255,0.08);
-  color: #93c5fd;
+  color: #60a5fa;
 }
-
 tr:nth-child(even) {
   background: rgba(255,255,255,0.02);
 }
-
 tr:hover {
   background: rgba(255,255,255,0.1);
 }
 
+/* MODAL */
 .modal {
   display: none;
   position: fixed;
@@ -246,7 +250,6 @@ tr:hover {
   align-items: center;
   z-index: 999;
 }
-
 .modal-content {
   background: #1e293b;
   padding: 20px;
@@ -256,7 +259,6 @@ tr:hover {
   text-align: center;
   position: relative;
 }
-
 .modal-content .close {
   position: absolute;
   right: 10px;
@@ -265,7 +267,6 @@ tr:hover {
   color: white;
   cursor: pointer;
 }
-
 .profile-photo {
   width: 80px;
   height: 80px;
@@ -274,9 +275,157 @@ tr:hover {
   margin-bottom: 10px;
 }
 
+/* FOOTER */
 .footer {
   text-align: center;
   color: #cbd5e1;
   padding: 20px;
   margin-top: 40px;
 }
+
+/* 🌞 LIGHT MODE OVERRIDES */
+body.light-mode {
+  background-color: #f8fafc;
+  color: #1e293b;
+}
+body.light-mode .navbar,
+body.light-mode .dashboard,
+body.light-mode .modal-content {
+  background-color: #e2e8f0;
+  color: #1e293b;
+}
+body.light-mode .nav-dropbtn,
+body.light-mode .team-selector,
+body.light-mode .month-selector,
+body.light-mode .contact-link {
+  background-color: #ffffff;
+  color: #1e293b;
+  border: 1px solid #cbd5e1;
+}
+body.light-mode .nav-dropbtn:hover,
+body.light-mode .team-selector:hover,
+body.light-mode .month-selector:hover,
+body.light-mode .contact-link:hover {
+  background-color: #f1f5f9;
+}
+/* ✅ Navbar wrapper with solid background based on theme */
+.navbar-container {
+  padding: 1rem 1rem 0 1rem;
+  background-color: #0f172a; /* dark mode default */
+}
+
+body.light-mode .navbar-container {
+  background-color: #f8fafc; /* light mode background */
+}
+
+/* Ensure navbar doesn't add top margin */
+.navbar {
+  margin: 0;
+}
+
+/* 📱 Mobile menu toggle */
+.hamburger {
+  display: none;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .nav-actions {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+    gap: 10px;
+  }
+
+  .nav-actions.open {
+    display: flex;
+  }
+
+  .nav-dropbtn, .team-selector, .month-selector, .contact-link {
+    width: 100%;
+  }
+
+  .search-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-container input {
+    width: 100%;
+  }
+
+  .search-container button {
+    width: 100%;
+  }
+
+  .stack-cards {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    animation: none;
+  }
+
+  .stack-card {
+    min-width: 140px;
+  }
+
+  table {
+    font-size: 0.85rem;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Smaller padding and font for navbar items */
+  .nav-dropbtn,
+  .team-selector,
+  .month-selector,
+  .contact-link {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    border-radius: 6px;
+  }
+
+  .nav-actions {
+    gap: 6px;
+  }
+
+  .logo {
+    font-size: 1.1rem;
+  }
+
+  .hamburger {
+    font-size: 1.3rem;
+    padding: 4px 8px;
+  }
+
+  .navbar {
+    padding: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-dropbtn,
+  .team-selector,
+  .month-selector,
+  .contact-link {
+    width: 100%;
+  }
+
+  .search-container input,
+  .search-container button {
+    width: 100%;
+  }
+}
+

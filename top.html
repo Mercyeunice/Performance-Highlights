@@ -11,31 +11,36 @@
 <body>
   <div class="background-glow"></div>
 
+  <!-- ✅ Navbar wrapper to blend with background -->
+  <!-- ✅ New Responsive Navbar -->
+<div class="navbar-container">
   <nav class="navbar">
     <a href="index.html" class="logo">🌐 INFRA HIGHLIGHTS</a>
-    <div class="nav-actions">
-      <div class="nav-dropdown">
-        <button class="nav-dropbtn">Sort by ▼</button>
-        <div class="nav-dropdown-content">
-          <a href="associate.html"></a>
-          <a href="mm.html">Stack</a>
-          <a href="mm.html">Resolution</a>
-          <a href="mm.html">CSS</a>
-          <a href="mm.html">Resolution</a>
-        </div>
-      </div>
-
+    <button class="hamburger" onclick="toggleMobileMenu()">☰</button>
+    <div class="nav-actions" id="navMenu">
       <select id="teamFilter" onchange="filterByTeam()" class="team-selector">
         <option value="">🔎 Filter by Team</option>
         <option>INFRA-OFFSHORE</option>
         <option>INFRA-GDOC</option>
-        <!-- <option>Cloud</option>
-        <option>DevOps</option> -->
       </select>
 
+      <div class="nav-dropdown">
+        <button class="nav-dropbtn">Sort by ▼</button>
+        <div class="nav-dropdown-content">
+          <a href="#" onclick="setSortKey('Stack')">Stack</a>
+          <a href="#" onclick="setSortKey('Resolution')">Resolution</a>
+          <a href="#" onclick="setSortKey('CSS')">CSS</a>
+          <a href="#" onclick="setSortKey('DSAT')">DSAT</a>
+        </div>
+      </div>
+
+      <button onclick="exportCSV()" class="contact-link">📤 Export CSV</button>
+      <!-- <button onclick="toggleTheme()" class="contact-link">🌙 Dark Mode</button> -->
       <a href="contact.html" class="contact-link">📞 Contact Us</a>
     </div>
   </nav>
+</div>
+
 
   <main class="dashboard" data-aos="fade-up">
     <h1>🏆 Performance Dashboard</h1>
@@ -86,7 +91,7 @@
   <div id="modal" class="modal">
     <div class="modal-content" data-aos="zoom-in">
       <span class="close" onclick="closeModal()">&times;</span>
-      <img id="modalPhoto" src="" class="profile-photo" />
+      <img id="modalPhoto" src="" class="profile-photo" onerror="this.src='https://via.placeholder.com/100';" />
       <h2 id="modalName">Employee Name</h2>
       <p id="modalEmployeeID">EmployeeID</p>
       <p id="modalDept">Team</p>
@@ -97,9 +102,17 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="js/rank.js"></script>
   <script>AOS.init({ duration: 1000, once: true });</script>
 
   <footer class="footer">© 2025 Copyrights by Ajith & Mercy</footer>
+
+  <script>
+    function toggleMobileMenu() {
+      document.getElementById("navMenu").classList.toggle("open");
+    }
+  </script>
+  
 </body>
 </html>
